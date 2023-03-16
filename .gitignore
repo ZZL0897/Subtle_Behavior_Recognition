@@ -160,3 +160,19 @@ cython_debug/
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 #.idea/
 
+# Model
+*.pth
+
+# TensorBoard Log
+events.out.*
+
+# Image
+*.png
+*.jpg
+*.bmp
+
+# Video
+*.mp4
+*.avi
+*.MTS
+
