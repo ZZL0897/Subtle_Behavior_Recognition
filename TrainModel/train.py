@@ -40,14 +40,14 @@ if __name__ == '__main__':
 
     batch_size = 16
 
-    save_name = 'dsy_one_vgg16' + str(batch_size)
+    save_name = 'jxsy_two_vgg16_' + str(batch_size)
 
     save_dir = os.path.join('model', save_name + '.pth')
     log_dir = 'log/' + save_name + '/'
     writer = SummaryWriter(log_dir=log_dir)
 
-    train_data = MyDataset(r'G:\train_dsy_one\train_info.json', transform)
-    test_data = MyDataset(r'G:\val_dsy_one\test_info.json')
+    train_data = MyDataset(r'G:\train_jxsy_two\train_info.json', transform, drop_label0=True)
+    test_data = MyDataset(r'G:\val_jxsy_two\test_info.json')
 
     device = 'cuda' if torch.cuda.is_available() else 'cpu'
 
@@ -67,6 +67,7 @@ if __name__ == '__main__':
     # net.apply(set_bn)  # BN层的momentum修改为0.99，默认为0.9
 
     # check = torch.load('vgg16_bn-6c64b313.pth')
+    # print(check.keys())
     # check.pop('classifier.6.weight')
     # check.pop('classifier.6.bias')
 

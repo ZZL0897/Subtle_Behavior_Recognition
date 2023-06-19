@@ -468,16 +468,16 @@ def draw_detect_result_on_frame(video_name: str,
                                 label_name: str,
                                 roi_size: int,
                                 video_scale: float) -> None:
-    cv2.putText(frame,
-                str('Video Name: ' + video_name),
-                (15, 20),
-                cv2.FONT_HERSHEY_COMPLEX_SMALL, 1, (0, 255, 255),
-                2)
+    # cv2.putText(frame,
+    #             str('Video Name: ' + video_name),
+    #             (25, 60),
+    #             cv2.FONT_HERSHEY_COMPLEX_SMALL, 2.5, (0, 255, 255),
+    #             2)
     cv2.putText(frame,
                 str('Current Frame: ' + str(current_frame_index)),
-                (15, 50),
-                cv2.FONT_HERSHEY_COMPLEX_SMALL, 1, (0, 255, 255),
-                2)
+                (25, 80),
+                cv2.FONT_HERSHEY_COMPLEX_SMALL, 3.5, (0, 255, 255),
+                3)
     if part >= 0:
         roi_size = roi_size * video_scale
         cv2.rectangle(frame,
@@ -485,11 +485,15 @@ def draw_detect_result_on_frame(video_name: str,
                       (int(x_rec[part] + roi_size / 2), int(y_rec[part] + roi_size / 2)),
                       color_map[display_label],
                       int(5*video_scale))
+        px = int(x_rec[part] - roi_size/2 - 120)
+        py = int(y_rec[part] + roi_size/2 + 75)
+        px = px if px > 0 else 0
+        py = py if py < frame.shape[1] else frame.shape[1]
         cv2.putText(frame,
-                    str(label_name + '  ' + str(int(display_conf * 100)) + '%'),
-                    (int(x_rec[part] - roi_size/2 + roi_size/20), int(y_rec[part] + roi_size/2 - roi_size/20)),
-                    cv2.FONT_HERSHEY_COMPLEX_SMALL, 1, color_map[display_label],
-                    2)
+                    str(label_name + ' ' + str(int(display_conf * 100)) + '%'),
+                    (px, py),
+                    cv2.FONT_HERSHEY_COMPLEX_SMALL, 3.5, color_map[display_label],
+                    3)
 
 
 if __name__ == '__main__':
