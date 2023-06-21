@@ -178,6 +178,15 @@ class GenerateStImageByFrameIndex:
             cv2.waitKey(1)
         return frame
 
+    def show_roi(self, is_show=True):
+        roi1 = self.roi_arr_rec[-1, 0, :].cpu().numpy()
+        roi2 = self.roi_arr_rec[-1, 1, :].cpu().numpy()
+        if is_show:
+            cv2.imshow('roi1', roi1)
+            cv2.imshow('roi2', roi2)
+            cv2.waitKey(1)
+        return roi1, roi2
+
     def get_current_key_points(self):
         return self.df_x[:, self.current_frame_index], self.df_y[:, self.current_frame_index]
 

@@ -25,7 +25,7 @@ color_map = dict(zip(list(range(1, len(label_name_dict))),
 # 根据deeplabcut检测的关键点数据和生成的标签提取信息文件，提取RGB和ST roi
 
 vido_scale = 1  # 视频缩放比率
-roi_size: int = 320
+roi_size: int = 200
 time_window: int = 8
 
 if roi_size * vido_scale % 2 != 0:
@@ -38,13 +38,13 @@ if roi_size * vido_scale % 2 != 0:
                 print('roi=%d,scale=%.2f,c=%d' % (roi_size + roi_i, vido_scale + scale_i / 100, int(c[0])))
     sys.exit()
 
-file_folder = r'E:\硕士\柑橘大实蝇梳理行为统计数据\recode\00370.mp4'  # 输入待检测的单个视频或者视频文件夹 F:\昆虫\jxsy\jxsy_recode  E:\硕士\柑橘大实蝇梳理行为统计数据\recode
-keypoints_base_folder = r'G:\test'  # 关键点检测信息文件夹 E:\硕士\桔小实蝇数据\桔小实蝇\detect  G:\test
+file_folder = r'F:\昆虫\jxsy\jxsy_recode\00447.mp4'  # 输入待检测的单个视频或者视频文件夹 F:\昆虫\jxsy\jxsy_recode  E:\硕士\柑橘大实蝇梳理行为统计数据\recode
+keypoints_base_folder = r'E:\硕士\桔小实蝇数据\桔小实蝇\detect'  # 关键点检测信息文件夹 E:\硕士\桔小实蝇数据\桔小实蝇\detect  G:\test
 save_path = r'G:'  # 保存行为检测数据的文件夹
-start_frame = 9300  # 从视频的第几帧开始检测
+start_frame = 5000  # 从视频的第几帧开始检测
 
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
-model = torch.load(r'TrainModel\model\dsy_all16.pth')
+model = torch.load(r'TrainModel\model\jxsy_all16.pth')
 model.to(device)
 model.eval()
 
@@ -82,8 +82,9 @@ for video in video_file_list:
         # cv2.imwrite('1.png', frame)
         # time.sleep(10)
 
-        # 是否显示ST image
+        # 是否显示ST image 和 ROI
         # st_rec_numpy = show_st_image(st_rec, key_points_dict, is_show=True)
+        # generator.show_roi()
         # save_img_rec(st_rec_numpy, r'G:\add', cu_idx)
 
         # 需要将(num_parts, roi_size, roi_size, 3) 转换为 (num_parts, 3, roi_size, roi_size) 以适配模型检测输入
@@ -108,8 +109,8 @@ for video in video_file_list:
                                     display_label, display_conf, cu_idx, label_name_dict[display_label],
                                     roi_size, vido_scale)
         cv2.imshow('frame', cur_frame)
-        cv2.imwrite('img/' + str(cu_idx) + '.png', cur_frame)
-        cv2.waitKey(1)
+        # cv2.imwrite('img/' + str(cu_idx) + '.png', cur_frame)
+        cv2.waitKey(0)
 
         # 保存检测视频
         # out.write(cur_frame)

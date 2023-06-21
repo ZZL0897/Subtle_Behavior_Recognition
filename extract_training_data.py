@@ -10,14 +10,14 @@ from pathlib import Path
 """
 
 # 存视频的文件夹路径
-file_folder = r'F:\昆虫\jxsy\jxsy_recode'
+file_folder = r''
 # 存关键点检测文件的文件夹路径
-keypoints_base_folder = r'E:\硕士\桔小实蝇数据\桔小实蝇\detect'
+keypoints_base_folder = r'template\keypoints'
 
 video_file_list = os.listdir(file_folder)
 
 # 要提帧的表，表的格式为：【视频，行为，帧】
-file = pd.read_csv(r'add_val.csv')
+file = pd.read_csv(r'')
 video_id_list = file['视频']
 # video_id_list = int(video_id_list)
 motion_list = file['行为']
@@ -45,6 +45,6 @@ for i, video in enumerate(video_id_list, 0):
     # cv2.imshow('p', cv2.cvtColor(st_rec[1].cpu().numpy(), cv2.COLOR_RGB2BGR))
     # cv2.waitKey(0)
 
-    save_img_data(path=r'G:\val_jxsy_two', file_name=str(vid) + '_' + str(frameInd), ST_arr=st_rec.cpu().numpy(),
+    save_img_data(path=r'template\dataset', file_name=str(vid) + '_' + str(frameInd), ST_arr=st_rec.cpu().numpy(),
                   save_size=generator.roi_size, video_id=vid, label_name=str(motion_list[i]))
     print(i)
