@@ -24,7 +24,11 @@ All `.csv` files should be ensured to be encoded in utf-8, otherwise they cannot
 基于视频标注结果，指定需要从视频中提取数据的帧序号，保存在`template\template.csv`中  
 您需要在该步骤中完成对训练集和验证集的划分，在下一步中分别提取
 
-例如：
+First label the video, record the behavior, start time and end time in the video, and save it in `template\video_label.csv`  
+Based on the video labeling result, specify the frame number from which data should be extracted, and save it in `template\template.csv`  
+You need to finish dividing the training set and validation set in this step, and extract them separately in the next step
+
+例如 For example：
 
 `video_label.csv`  
 
@@ -34,6 +38,8 @@ All `.csv` files should be ensured to be encoded in utf-8, otherwise they cannot
 | 100        | head     | 51          | 120       |
 
 从`video_label.csv`中可以随机选取视频帧并在稍后提取，要确保帧序号在时间范围内
+
+Video frames from `video_label.csv` can be randomly selected and extracted later, making sure the frame number is within the time frame
 
 `template.csv`
 
@@ -45,10 +51,12 @@ All `.csv` files should be ensured to be encoded in utf-8, otherwise they cannot
 | 100        | head     | 75    |
 | 100        | head     | 100   |
 
-### 训练数据提取
+### 训练数据提取 Training data extraction
 将所有视频放在一个文件夹中
 
-un `extract_training_data.py`
+Put all videos in one folder
+
+run `extract_training_data.py`
 
 alter `file_folder` = The folder path for storing videos
 
@@ -60,12 +68,12 @@ alter `keypoints_base_folder` = `template\keypoints`
 
 时空特征图像会分类保存在`template\train_dataset`和`template\val_dataset`中
 
-### 训练数据校对
+### 训练数据校对 Training data proofreading
 
 在训练之前，应该对数据集中的时空特征图像进行检查，剔除明显有错误的样本
 
-## 训练行为识别模型
-### 准备工作
+## 训练行为识别模型 Training behavior recognition models
+### 准备工作 Preparation
 run `TrainModel\MyDataset.py`
 
 alter `main()` function
@@ -73,16 +81,25 @@ alter `main()` function
 指定训练集和验证集的路径  
 运行结束后，会在数据集根目录下生成一个`info.json`文件
 
-### 训练
+Specify the paths to the training and validation sets  
+After running, an `info.json` file will be generated in the root of the dataset
+
+### 训练 Training
 run `TrainModel\train.py`
 
 需要指定训练集和验证集`info.json`文件的路径，自行设置模型名称与保存路径
 
-## 检测视频
+You need to specify the path of the training set and validation set `info.json` file, set the model name and save path by yourself
+
+## 检测视频 Video detection
 run `detect_video.py`  
-代码 41-47行 指定各类参数的路径，检测完毕后会生成行为统计结果
+修改代码 41-47行，指定各类参数的路径，检测完毕后会生成行为统计结果
+
+Modify code lines 41-47 Specify the paths of various parameters, and generate behavior statistics after the detection is completed
 
 run `tools\check.py`  
 指定视频和对应的统计结果文件，可以对统计结果进行校对并更正可能的错误
+
+Specify the video and the corresponding statistics file, which allows you to proofread the statistics and correct possible errors
 
 
