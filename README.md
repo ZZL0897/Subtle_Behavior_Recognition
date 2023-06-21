@@ -1,15 +1,22 @@
 # Subtle Behavior Recognition System
 
-## 使用前
-### 准备
+## 使用前 Before Using
+### 准备 Prepare
 本系统的运行依赖于DeepLabCut的关键点检测结果，选取头部和尾部两个位置的关键点进行跟踪。  
-首先需要完成DeepLabCut模型的训练，然后使用模型检测视频，会得到两个检测文件，以.meta结尾的检测文件放进`template\keypoints\metadata`中，另一个文件放进`template\keypoints\analyze`中，视频检测时会读取这两个文件。
 
-### 安装
+The operation of this system relies on DeepLabCut's key point detection results, and key points at two locations, head and tail, are selected for tracking.
+
+
+首先需要完成DeepLabCut模型的训练，然后使用模型检测视频，会得到两个检测文件，以`.meta`结尾的检测文件放进`template\keypoints\metadata`中，另一个文件放进`template\keypoints\analyze`中，视频检测时会读取这两个文件。  
+
+First, we need to complete the training of DeepLabCut, and then use it to detect the video, we will get two detection files, the detection file ending with `.meta` should be put into `template\keypoints\metadata`, and the other file should be put into `template\keypoints\analyze`, in later steps, we will read these two files.
+
+### 安装 Installation
 run `pip install -r requirement.txt`
 
-### 注意事项
-所有的`.csv`文件都应确保编码为utf-8，否则无法正常读取
+### 注意事项 Caution
+所有的`.csv`文件都应确保编码为utf-8，否则无法正常读取  
+All `.csv` files should be ensured to be encoded in utf-8, otherwise they cannot be read properly
 
 ## 数据集制作
 ### 数据标注
