@@ -2,10 +2,11 @@
 
 ## 使用前 Before Using
 ### 准备 Prepare
-本系统的运行依赖于DeepLabCut(https://github.com/DeepLabCut/DeepLabCut)的关键点检测结果，选取头部和尾部两个位置的关键点进行跟踪。  
+本系统的运行依赖于DeepLabCut的关键点检测结果，选取头部和尾部两个位置的关键点进行跟踪。
 
 The operation of this system relies on DeepLabCut's key point detection results, and key points at two locations, head and tail, are selected for tracking.
 
+DeepLabCut: https://github.com/DeepLabCut/DeepLabCut 
 
 首先需要完成DeepLabCut模型的训练，然后使用模型检测视频，会得到两个检测文件，以`.meta`结尾的检测文件放进`template\keypoints\metadata`中，另一个文件放进`template\keypoints\analyze`中，视频检测时会读取这两个文件。  
 
