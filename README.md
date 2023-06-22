@@ -2,7 +2,7 @@
 
 ## 使用前 Before Using
 ### 准备 Prepare
-本系统的运行依赖于DeepLabCut的关键点检测结果，选取头部和尾部两个位置的关键点进行跟踪。  
+本系统的运行依赖于DeepLabCut(https://github.com/DeepLabCut/DeepLabCut)的关键点检测结果，选取头部和尾部两个位置的关键点进行跟踪。  
 
 The operation of this system relies on DeepLabCut's key point detection results, and key points at two locations, head and tail, are selected for tracking.
 
