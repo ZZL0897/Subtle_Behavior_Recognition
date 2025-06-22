@@ -69,10 +69,10 @@ def load_keypoints_info(info_path, video_file_name):
             提取ROI数量不同时需要修改的地方
             一块ROI就要用下面四行
             '''
-            # df_x = np.expand_dims(np.sum(df_x, axis=0) / 2, axis=0)
-            # df_y = np.expand_dims(np.sum(df_y, axis=0) / 2, axis=0)
-            # df_likelihood = np.expand_dims(np.sum(df_likelihood, axis=0) / 2, axis=0)
-            # bodyparts = ['front']
+            df_x = np.expand_dims(np.sum(df_x, axis=0) / 2, axis=0)
+            df_y = np.expand_dims(np.sum(df_y, axis=0) / 2, axis=0)
+            df_likelihood = np.expand_dims(np.sum(df_likelihood, axis=0) / 2, axis=0)
+            bodyparts = ['front']
 
             return bodyparts, df_x, df_y, df_likelihood, cropping, cropping_parameters
 

@@ -40,7 +40,7 @@ if __name__ == '__main__':
 
     batch_size = 16
 
-    save_name = 'jxsy_two_vgg16_' + str(batch_size)
+    save_name = '1111111111111111111111111111111' + str(batch_size)
 
     save_dir = os.path.join('model', save_name + '.pth')
     log_dir = 'log/' + save_name + '/'
@@ -60,8 +60,8 @@ if __name__ == '__main__':
 
     # net = ResNet50(num_class=8).to(device)
     # net = Paper2020().to(device)
-    net = torchvision.models.vgg16(weights=None, progress=False, num_classes=8).to(device)
-    # net = torchvision.models.resnet50(weights=None, progress=False, num_classes=8).to(device)
+    # net = torchvision.models.vgg16(weights=None, progress=False, num_classes=8).to(device)
+    net = torchvision.models.resnet50(weights=None, progress=False, num_classes=8).to(device)
 
     # net.apply(net_init)
     # net.apply(set_bn)  # BN层的momentum修改为0.99，默认为0.9

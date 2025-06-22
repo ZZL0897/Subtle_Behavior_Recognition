@@ -506,13 +506,13 @@ def draw_detect_result_on_frame(video_name: str,
 
 
 if __name__ == '__main__':
-    g = GenerateStImageFrameByFrame(r'H:\recode\00084.mp4', r'G:\test', roi_size=300)
+    g = GenerateStImageFrameByFrame(r'G:\new2025\1.mp4', r'G:\new2025', roi_size=500)
     i = 1
     while 1:
         g.get_roi_rec_frame_by_frame()
         st_rec, cu_idx = g.generate_st_image()
-        # cv2.imshow('f', cv2.cvtColor(st_rec[0].cpu().numpy(), cv2.COLOR_RGB2BGR))
+        cv2.imshow('f', cv2.cvtColor(st_rec[0].cpu().numpy(), cv2.COLOR_RGB2BGR))
         # cv2.imshow('p', cv2.cvtColor(st_rec[1].cpu().numpy(), cv2.COLOR_RGB2BGR))
-        # cv2.waitKey(1)
+        cv2.waitKey(1)
         # print(i)
         i += 1

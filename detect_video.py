@@ -25,7 +25,7 @@ color_map = dict(zip(list(range(1, len(label_name_dict))),
 # 根据deeplabcut检测的关键点数据和生成的标签提取信息文件，提取RGB和ST roi
 
 vido_scale = 1  # 视频缩放比率
-roi_size: int = 200
+roi_size: int = 320
 time_window: int = 8
 
 if roi_size * vido_scale % 2 != 0:
@@ -38,13 +38,13 @@ if roi_size * vido_scale % 2 != 0:
                 print('roi=%d,scale=%.2f,c=%d' % (roi_size + roi_i, vido_scale + scale_i / 100, int(c[0])))
     sys.exit()
 
-file_folder = r'F:\昆虫\jxsy\jxsy_recode\00447.mp4'  # 输入待检测的单个视频或者视频文件夹 F:\昆虫\jxsy\jxsy_recode  E:\硕士\柑橘大实蝇梳理行为统计数据\recode
-keypoints_base_folder = r'E:\硕士\桔小实蝇数据\桔小实蝇\detect'  # 关键点检测信息文件夹 E:\硕士\桔小实蝇数据\桔小实蝇\detect  G:\test
+file_folder = r'E:\硕士\柑橘大实蝇梳理行为统计数据\recode\00192.mp4'  # 输入待检测的单个视频或者视频文件夹 F:\昆虫\jxsy\jxsy_recode  E:\硕士\柑橘大实蝇梳理行为统计数据\recode
+keypoints_base_folder = r'G:\test'  # 关键点检测信息文件夹 E:\硕士\桔小实蝇数据\桔小实蝇\detect  G:\test
 save_path = r'G:'  # 保存行为检测数据的文件夹
-start_frame = 5000  # 从视频的第几帧开始检测
+start_frame = 0  # 从视频的第几帧开始检测
 
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
-model = torch.load(r'TrainModel\model\jxsy_all16.pth')
+model = torch.load(r'TrainModel\model\dsy_all16.pth')
 model.to(device)
 model.eval()
 
@@ -63,11 +63,12 @@ for video in video_file_list:
                                             roi_size=roi_size, time_window=time_window, start_frame=start_frame)
     cu_idx = 0
     count_time = 0
+    frame_rate_count = 0
     predict_label_list = []
 
     # 是否保存检测视频，不保存就注释掉
-    # fourcc = cv2.VideoWriter_fourcc(*'XVID')
-    # out = cv2.VideoWriter(video_name + '_detect.avi', fourcc, 25, (generator.width_crop, generator.height_crop))
+    fourcc = cv2.VideoWriter_fourcc(*'XVID')
+    out = cv2.VideoWriter(video_name + '_detect.avi', fourcc, 25, (generator.width_crop, generator.height_crop))
 
     while cu_idx < generator.end_frame - 1:
 
@@ -105,27 +106,29 @@ for video in video_file_list:
         # print(cur_x, cur_y)
 
         # 在frame上绘制检测结果并显示
-        draw_detect_result_on_frame(video_name, cur_frame, display_part, cur_x, cur_y, color_map,
-                                    display_label, display_conf, cu_idx, label_name_dict[display_label],
-                                    roi_size, vido_scale)
+        # draw_detect_result_on_frame(video_name, cur_frame, display_part, cur_x, cur_y, color_map,
+        #                             display_label, display_conf, cu_idx, label_name_dict[display_label],
+        #                             roi_size, vido_scale)
         cv2.imshow('frame', cur_frame)
         # cv2.imwrite('img/' + str(cu_idx) + '.png', cur_frame)
-        cv2.waitKey(0)
+        cv2.waitKey(1)
 
         # 保存检测视频
-        # out.write(cur_frame)
+        out.write(cur_frame)
 
         end = time.time()
         count_time += end - start
-        frame_rate = (cu_idx + 1) / count_time
+        frame_rate_count += 1 / (end - start)
+        frame_rate = frame_rate_count / (cu_idx + 1)
+        # print(frame_rate)
         # print(1 / (end - start))
 
     print(count_time)
     print(generator.end_frame / count_time)
     print()
 
-    start, end, motion = judge_motion_section(predict_label_list)
-    generate_csv(start, end, motion, save_path, video_name)
+    # start, end, motion = judge_motion_section(predict_label_list)
+    # generate_csv(start, end, motion, save_path, video_name)
 
     cv2.destroyAllWindows()
     del generator

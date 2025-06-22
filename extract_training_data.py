@@ -10,14 +10,14 @@ from pathlib import Path
 """
 
 # 存视频的文件夹路径
-file_folder = r''
+file_folder = r'G:\new2025'
 # 存关键点检测文件的文件夹路径
 keypoints_base_folder = r'template\keypoints'
 
 video_file_list = os.listdir(file_folder)
 
 # 要提帧的表，表的格式为：【视频，行为，帧】
-file = pd.read_csv(r'')
+file = pd.read_csv(r'G:\new2025\random.csv')
 video_id_list = file['视频']
 # video_id_list = int(video_id_list)
 motion_list = file['行为']
@@ -25,10 +25,13 @@ frame_id_list = file['帧']
 
 vid = str(0)
 for i, video in enumerate(video_id_list, 0):
-    if len(str(int(video))) == 2:
-        video_name = '000' + str(int(video))
-    elif len(str(int(video))) == 3:
-        video_name = '00' + str(int(video))
+    # if len(str(int(video))) == 2:
+    #     video_name = '000' + str(int(video))
+    # elif len(str(int(video))) == 3:
+    #     video_name = '00' + str(int(video))
+
+    video_name = str(video)
+    print(video_name)
 
     if int(vid) != int(video_name):
         vid = video_name

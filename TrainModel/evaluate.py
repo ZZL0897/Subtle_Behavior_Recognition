@@ -24,7 +24,7 @@ if __name__ == '__main__':
 
     criterion = nn.CrossEntropyLoss().to(device)  # use a Classification Cross-Entropy loss
 
-    # evaluate(net, device, test_loader, criterion)
+    evaluate(net, device, test_loader, criterion)
 
     # path = r'D:\Users\ZZL\Desktop\hzz'
     # img_list = os.listdir(path)
